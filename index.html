@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presentasi Kalcer.id - Final Showcase</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --glass-bg: rgba(255, 255, 255, 0.65);
+        --glass-border: rgba(255, 255, 255, 0.8);
+        --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        --text-main: #111827;
+        --text-sec: #4b5563;
+        --accent-1: #6366f1; /* Indigo */
+        --accent-2: #ec4899; /* Pink */
+        --accent-3: #f59e0b; /* Amber */
+        --blob-1: #c4b5fd;
+        --blob-2: #fbcfe8;
+        --blob-3: #bae6fd;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        /* cursor: none;  <-- DIHAPUS agar pointer kembali normal */
+      }
+
+      body {
+        background-color: #f0fdfa;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      /* --- BACKGROUND BLOBS --- */
+      .blobs-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.6;
+        animation: float 10s infinite alternate;
+      }
+      .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--blob-1); }
+      .blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: var(--blob-2); }
+      .blob-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: var(--blob-3); }
+      
+      @keyframes float {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        100% { transform: translate(20px, 40px) rotate(10deg); }
+      }
+
+      /* --- MAIN CONTAINER --- */
+      .presentation-container {
+        width: 95%;
+        max-width: 1380px;
+        height: 92vh;
+        background: var(--glass-bg);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border-radius: 40px;
+        border: 2px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+        position: relative;
+        padding: 0; /* Reset padding for full layout */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* --- MARQUEE DECORATION --- */
+      .marquee-container {
+        width: 100%;
+        background: var(--accent-1);
+        color: white;
+        padding: 8px 0;
+        font-weight: 700;
+        font-family: 'Syne', sans-serif;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .marquee-content {
+        display: inline-block;
+        animation: marquee 20s linear infinite;
+      }
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      /* --- SLIDE STYLES --- */
+      .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 4rem 2rem 2rem 2rem; /* Top padding for marquee */
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+        filter: blur(10px);
+        transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .slide.active {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+        pointer-events: all;
+        z-index: 10;
+      }
+
+      /* --- TYPOGRAPHY & ELEMENTS --- */
+      h1 {
+        font-family: "Syne", sans-serif;
+        font-size: 4.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+        letter-spacing: -2px;
+        position: relative;
+        z-index: 2;
+      }
+      h2 {
+        font-family: "Syne", sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 1.5rem;
+        letter-spacing: -1px;
+        position: relative;
+        z-index: 2;
+      }
+      h3 {
+        font-size: 0.9rem;
+        color: white;
+        background: var(--text-main);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        transform: rotate(-2deg);
+        display: inline-block;
+        box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+      }
+      p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #374151;
+        margin-bottom: 1.5rem;
+        max-width: 850px;
+        font-weight: 500;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* --- CARDS & GRIDS --- */
+      .card-grid {
+        display: flex;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1100px;
+        justify-content: center;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        perspective: 1000px;
+      }
+      .card {
+        flex: 1;
+        min-width: 300px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2.5rem;
+        border-radius: 30px;
+        border: 2px solid white;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-align: left;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      }
+      .card:hover {
+        transform: translateY(-10px) rotate(1deg);
+        background: white;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        z-index: 5;
+        border-color: var(--accent-1);
+      }
+      .card-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      }
+      
+      /* --- PLACEHOLDER FOR SCREENSHOTS --- */
+      .image-placeholder {
+        width: 85%;
+        max-width: 1000px;
+        height: 450px;
+        background: #f1f5f9;
+        border: 3px dashed #cbd5e1;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem auto;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s;
+        box-shadow: inset 0 0 40px rgba(0,0,0,0.02);
+      }
+      .image-placeholder:hover {
+        transform: scale(1.01);
+        border-color: var(--accent-1);
+        background: #eef2ff;
+      }
+      .image-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+      .placeholder-content {
+        z-index: 2;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1.5rem 3rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid white;
+      }
+
+      /* --- DECORATIVE STICKERS --- */
+      .sticker {
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.8;
+        filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+      }
+      .sticker-star {
+        font-size: 4rem;
+        color: var(--accent-3);
+        top: 20%;
+        right: 10%;
+        animation: spin 10s linear infinite;
+      }
+      .sticker-tape {
+        width: 150px;
+        height: 40px;
+        background: rgba(255,255,255,0.4);
+        border: 1px solid rgba(255,255,255,0.6);
+        transform: rotate(-45deg);
+        top: 10%;
+        left: -5%;
+        backdrop-filter: blur(5px);
+      }
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+
+      /* --- CONTROLS --- */
+      .controls {
+        position: absolute;
+        bottom: 2.5rem;
+        right: 3rem;
+        display: flex;
+        gap: 1rem;
+        z-index: 50;
+      }
+      .btn-nav {
+        background: #111827;
+        color: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      }
+      .btn-nav:hover {
+        transform: scale(1.15);
+        background: var(--accent-1);
+        box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+      }
+      
+      .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 8px;
+        background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+        width: 0%;
+        transition: width 0.5s;
+        z-index: 60;
+      }
+
+      /* --- MODAL --- */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(15px);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+      }
+      .modal.show { display: flex; animation: fadeIn 0.3s; }
+      .modal img {
+        max-width: 95%;
+        max-height: 95%;
+        border-radius: 20px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        border: 5px solid white;
+      }
+      @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
+  </head>
+  <body>
+
+    <div class="blobs-container">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+
+    <main class="presentation-container">
+      
+      <div class="marquee-container">
+        <div class="marquee-content">
+          KALCER.ID • FINAL PROJECT • WEB PROGRAMMING • JAKARTA SELATAN • HYPE TRACKER • KALCER.ID • FINAL PROJECT • WEB PROGRAMMING • JAKARTA SELATAN • HYPE TRACKER • 
+          KALCER.ID • FINAL PROJECT • WEB PROGRAMMING • JAKARTA SELATAN • HYPE TRACKER • KALCER.ID • FINAL PROJECT • WEB PROGRAMMING • JAKARTA SELATAN • HYPE TRACKER •
+        </div>
+      </div>
+
+      <section class="slide active">
+        <div class="sticker sticker-star">✦</div>
+        <div class="sticker sticker-tape"></div>
+        
+        <h3>FINAL RELEASE 2.0</h3>
+        <h1>Kalcer.id</h1>
+        <p style="font-size: 1.8rem; margin-top: 1rem; font-weight: 600; color: #111827;">
+          The Ultimate <span style="color: var(--accent-1); text-decoration: underline decoration-wavy;">Gen-Z</span> Hangout Tracker
+        </p>
+        <div style="margin-top: 3rem; display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
+            <div style="background: #1f2937; color: white; padding: 10px 20px; border-radius: 15px; font-weight: 700;">Laravel 11</div>
+            <div style="background: #e0e7ff; color: #4338ca; padding: 10px 20px; border-radius: 15px; font-weight: 700;">Livewire Volt</div>
+            <div style="background: #fce7f3; color: #db2777; padding: 10px 20px; border-radius: 15px; font-weight: 700;">Mapbox GL</div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="sticker" style="top: 10%; left: 5%; font-size: 5rem; transform: rotate(-15deg);">😫</div>
+        
+        <h3>THE STRUGGLE</h3>
+        <h2>Kenapa Nongkrong Jadi Susah?</h2>
+        <div class="card-grid">
+          <div class="card" style="transform: rotate(-2deg);">
+            <div class="card-icon">😤</div>
+            <h4>Overcrowding</h4>
+            <p>Ekspektasi healing, realita pusing. Antri 2 jam cuma buat kopi susu.</p>
+          </div>
+          <div class="card" style="transform: rotate(2deg); z-index: 2;">
+            <div class="card-icon">🧩</div>
+            <h4>Info Ga Valid</h4>
+            <p>Review TikTok cuma "estetik" doang. Ga ada info soal wifi, colokan, atau parkir.</p>
+          </div>
+          <div class="card" style="transform: rotate(-1deg);">
+            <div class="card-icon">📉</div>
+            <h4>Business Blindspot</h4>
+            <p>Pemilik cafe ga tau kenapa tempatnya sepi di jam tertentu.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="sticker" style="bottom: 15%; left: 10%; font-size: 4rem;">💡</div>
+        <div class="sticker" style="top: 20%; right: 10%; font-size: 4rem;">🚀</div>
+
+        <h3>OUR SOLUTION</h3>
+        <h2>Smart Hangout Ecosystem</h2>
+        <p>Platform kurasi berbasis data yang mempertemukan <strong>Pencari Spot</strong> dengan <strong>Pemilik Bisnis</strong>.</p>
+        
+        <div class="card-grid" style="margin-top: 3rem;">
+            <div class="card" style="background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%); border-color: #c7d2fe;">
+                <h4>🔭 For Visitors</h4>
+                <ul style="list-style: none; margin-top: 1rem; font-size: 1rem; line-height: 1.8;">
+                    <li>✅ Cek <strong>Hype Score</strong> (Viral Meter)</li>
+                    <li>✅ Filter Kategori (WFH / Date / Party)</li>
+                    <li>✅ Navigasi anti nyasar via Mapbox</li>
+                </ul>
+            </div>
+            <div class="card" style="background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%); border-color: #fbcfe8;">
+                <h4>💼 For Owners</h4>
+                <ul style="list-style: none; margin-top: 1rem; font-size: 1rem; line-height: 1.8;">
+                    <li>✅ <strong>Claim Listing</strong> Bisnis</li>
+                    <li>✅ Pasang <strong>Live Promo</strong></li>
+                    <li>✅ Pantau <strong>Traffic Insight</strong></li>
+                </ul>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h3>MAJOR UPDATE v2.0</h3>
+        <h2>UI/UX Revolution</h2>
+        <p>Tampilan baru yang lebih <em>fresh</em>, mengikuti standar estetika Gen Z (Neo-Brutalism x Glassmorphism).</p>
+        
+        <div class="card-grid" style="margin-top: 2rem;">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🌙</div>
+                <h4>Dark Mode</h4>
+                <p>Mata nyaman siang & malam. Auto-save preference.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🇺🇸</div>
+                <h4>Multi-Language</h4>
+                <p>Support Bahasa Indonesia & English switch instan.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎨</div>
+                <h4>Glassmorphism</h4>
+                <p>Navbar transparan, kartu blur, & background noise.</p>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h3>APP SHOWCASE</h3>
+        <h2>Homepage & Maps</h2>
+        <div class="image-placeholder" onclick="openModal(this)">
+            <img src="" alt="" style="display: none;">
+            
+            <div class="placeholder-content">
+                <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">🗺️</span>
+                <h4 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Klik untuk Fullscreen</h4>
+                <p style="margin: 0;">Lihat integrasi Mapbox GL & Card Trending</p>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h3>SMART AUTH</h3>
+        <h2>Role-Based System</h2>
+        <div class="card-grid">
+            <div class="card" style="text-align: center; border-bottom: 8px solid #111827;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">😎</div>
+                <h4>Pengunjung</h4>
+                <p>Daftar biasa. Akses fitur pencarian, favorit, & review.</p>
+            </div>
+            <div class="card" style="text-align: center; border-bottom: 8px solid var(--accent-1);">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">💼</div>
+                <h4>Pemilik Usaha</h4>
+                <p>Daftar sebagai partner. Langsung redirect ke Dashboard Bisnis.</p>
+            </div>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.6; font-size: 0.9rem;">
+            *User memilih peran saat Register dengan UI yang intuitif.
+        </p>
+      </section>
+
+      <section class="slide">
+        <h3>EXCLUSIVE FEATURE</h3>
+        <h2>Business Dashboard</h2>
+        <p>Panel kontrol khusus pemilik usaha dengan desain <em>Bento Grid</em>.</p>
+        
+        <div class="image-placeholder" onclick="openModal(this)">
+            <img src="" alt="" style="display: none;">
+            
+            <div class="placeholder-content">
+                <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">📊</span>
+                <h4 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Lihat Dashboard</h4>
+                <p style="margin: 0;">Fitur: Viral Score, Promo Management, & Analytics</p>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h3>USER EXPERIENCE</h3>
+        <h2>"Social" Profile Page</h2>
+        
+        <div class="card-grid" style="align-items: center;">
+            <div class="card" style="background: #fff;">
+                <h4 style="margin-bottom: 1.5rem;">Fitur Personal:</h4>
+                <ul style="list-style: none; font-size: 1.1rem; line-height: 2;">
+                    <li>📸 <strong>Upload Foto:</strong> Real-time update avatar.</li>
+                    <li>📝 <strong>Bio & Username:</strong> Identitas ala sosmed.</li>
+                    <li>🔒 <strong>Security:</strong> Ganti password dengan aman.</li>
+                    <li>🚪 <strong>Logout:</strong> Akses mudah di dropdown navbar.</li>
+                </ul>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(135deg, #fce7f3 0%, #e0e7ff 100%); transform: rotate(3deg); text-align: center;">
+                <div style="width: 100px; height: 100px; background: white; border-radius: 50%; margin: 0 auto 1rem; border: 4px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"></div>
+                <div style="height: 15px; width: 60%; background: white; margin: 0 auto 10px; border-radius: 10px;"></div>
+                <div style="height: 10px; width: 40%; background: rgba(255,255,255,0.6); margin: 0 auto; border-radius: 10px;"></div>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <h3>KESIMPULAN</h3>
+        <h2>Why Kalcer.id Matters?</h2>
+        
+        <div class="card-grid" style="margin-top: 2rem;">
+            <div class="card" style="background: #ecfccb; border-color: #bef264;">
+                <div class="card-icon">⚡</div>
+                <h4>Efisiensi Waktu</h4>
+                <p>Tidak ada lagi perjalanan sia-sia ke tempat yang penuh atau tutup.</p>
+            </div>
+            <div class="card" style="background: #e0e7ff; border-color: #c7d2fe;">
+                <div class="card-icon">💎</div>
+                <h4>Validitas Data</h4>
+                <p>Keputusan nongkrong berdasarkan data real, bukan sekadar opini.</p>
+            </div>
+            <div class="card" style="background: #ffe4e6; border-color: #fda4af;">
+                <div class="card-icon">📈</div>
+                <h4>Pertumbuhan Bisnis</h4>
+                <p>Membantu UMKM Jaksel mendapatkan eksposur yang tepat sasaran.</p>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="sticker sticker-star" style="top: 15%; left: 20%;">✦</div>
+        
+        <h1 style="font-size: 6rem; margin-bottom: 2rem;">Terima Kasih</h1>
+        <div style="font-size: 4rem; animation: float 3s infinite;">👋</div>
+        
+        <div style="margin-top: 4rem; padding: 2rem; background: rgba(255,255,255,0.5); border-radius: 30px; border: 1px solid white;">
+            <p style="margin: 0; font-weight: 700; color: #111827;">Kalcer.id Team</p>
+            <p style="margin: 0; font-size: 1rem; opacity: 0.7;">Bringing Jakarta Selatan closer to you.</p>
+        </div>
+      </section>
+
+      <div class="controls">
+        <button class="btn-nav" onclick="changeSlide(-1)">←</button>
+        <button class="btn-nav" onclick="changeSlide(1)">→</button>
+      </div>
+      <div class="progress-bar" id="progressBar"></div>
+    </main>
+
+    <div class="modal" id="imgModal" onclick="this.classList.remove('show')">
+        <img src="" id="modalImg" />
+    </div>
+
+    <script>
+      // --- LOGIC SLIDER ---
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".slide");
+      const progressBar = document.getElementById("progressBar");
+
+      function changeSlide(dir) {
+        const next = currentSlide + dir;
+        if (next >= 0 && next < slides.length) {
+          slides[currentSlide].classList.remove("active");
+          currentSlide = next;
+          slides[currentSlide].classList.add("active");
+          updateProgress();
+        }
+      }
+
+      function updateProgress() {
+        const percent = ((currentSlide + 1) / slides.length) * 100;
+        progressBar.style.width = `${percent}%`;
+      }
+      updateProgress();
+
+      // Keyboard Arrow Navigation
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") changeSlide(1);
+        if (e.key === "ArrowLeft") changeSlide(-1);
+      });
+
+      // --- MODAL LOGIC ---
+      function openModal(el) {
+        const img = el.querySelector("img");
+        // Cek apakah ada gambar (src tidak kosong)
+        if (img && img.src && img.src !== window.location.href && img.style.display !== "none") {
+          document.getElementById("modalImg").src = img.src;
+          document.getElementById("imgModal").classList.add("show");
+        } else {
+            // Jika belum ada gambar, bisa alert atau ignore
+            // alert("Screenshot belum dipasang! Silakan edit HTML.");
+            console.log("No screenshot source found.");
+        }
+      }
+    </script>
+  </body>
+</html>
